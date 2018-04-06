@@ -1,14 +1,18 @@
 var express=require("express");
 var auth = require("./auth.js");
 var fs = require("fs");
+var path = require("path");
 
 var fn = "config.json";
 var oauthRec = {};
 var uri = "api.bluejeans.com";
 var authPath = "/oauth2/token";
 
+var jssrc = path.dirname(process.argv[1]);
+console.log("Directory: " + jssrc+"\\"+fn);
 
-fs.readFile(fn, (err,data)=> {
+
+fs.readFile(jssrc + "\\" + fn, (err,data)=> {
 	if(err) {
 		console.log("Error reading file: " + fn +"\n"+err);
 		process.exit();
@@ -17,7 +21,7 @@ fs.readFile(fn, (err,data)=> {
 	oauthRec = JSON.parse(sd);
 
 	auth.post( uri, authPath,oauthRec).then(function(results){
-	  console.log("   ** A C C E S S   T O K E N  **");
+	  console.log("\n   ** A C C E S S   T O K E N  **");
 	  console.log("\n    " + results.access_token);
 	  console.log("");
 	  // console.log("results:\n" + JSON.stringify(results,null,2));
