@@ -24,6 +24,12 @@ fs.readFile(jssrc + "\\" + fn, (err,data)=> {
 	  console.log("\n   ** A C C E S S   T O K E N  **");
 	  console.log("\n    " + results.access_token);
 	  console.log("");
+	  console.log("Grant type: " + oauthRec.grant_type);
+	  if(oauthRec.grant_type == "password"){
+		  console.log("User name:  " + oauthRec.username);
+	  } else if(oauthRec.grant_type == "client_credentials"){
+		  console.log("Client Key: " + oauthRec.client_id);
+	  }
 	  // console.log("results:\n" + JSON.stringify(results,null,2));
 	},function(errors){
 		var emsg = errors.replace(/\n/g,"\n  ");
