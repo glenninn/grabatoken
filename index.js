@@ -6,11 +6,12 @@ var path = require("path");
 var fn = "config.json";
 var oauthRec = {};
 var uri = "api.bluejeans.com";
-var authPath = "/oauth2/token";
+var authPath = "/oauth2/token?Password";
 
 var jssrc = path.dirname(process.argv[1]);
 console.log("Directory: " + jssrc+"\\"+fn);
 
+auth.debug(true);
 
 fs.readFile(jssrc + "\\" + fn, (err,data)=> {
 	if(err) {

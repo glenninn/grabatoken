@@ -8,6 +8,11 @@ var http = require("http");
 var https = require("https");
 
 var authToken = "";
+var _debug = false;
+
+const debug = (df) => _debug=df;
+
+const jss = (o)=> JSON.stringify(o,null,2);
 
 
 var post = function(host,path,body){
@@ -25,9 +30,17 @@ var post = function(host,path,body){
 			method: "POST",
 			headers : {
 				'content-type' : 'application/json',
+				'accept' : 'application/json',
 				'content-length' : Buffer.byteLength(postContent)
 			    }
 		    };
+			
+		if(_debug){
+			console.log(`HTTP parameters:\n${jss(opt)}`);
+			console.log(`Body: ${jss(postContent)}`);
+		}
+			
+			
 		var req = https.request(opt, function (res) {
 			var respBody = "";
 			res.setEncoding('utf8');
@@ -66,6 +79,12 @@ var get = function(host,path){
 			path : path,
 			method: "GET",
 		    };
+			
+		if(_debug){
+			console.log(`HTTP parameters:\n${jss(opt2)}`);
+			console.log(`Body: ${jss(postContent)}`);
+		}
+			
 		
 		var req = https.request(opt, function (res) {
 			var respBody = "";
@@ -95,6 +114,7 @@ authorize = function(token){
 }
 
 
+module.exports.debug = debug;
 module.exports.post = post;
 module.exports.get = get;
 module.exports.authorize = authorize;
