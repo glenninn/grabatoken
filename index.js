@@ -11,7 +11,7 @@ var authPath = "/oauth2/token?Password";
 var jssrc = path.dirname(process.argv[1]);
 console.log("Directory: " + jssrc+"\\"+fn);
 
-auth.debug(true);
+//auth.debug(true);
 
 fs.readFile(jssrc + "\\" + fn, (err,data)=> {
 	if(err) {
